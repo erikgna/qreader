@@ -1,0 +1,70 @@
+<!-- https://www.npmjs.com/package/qrcode-generator  
+// Codigo a pagina de um gerador de qrcode PARA UM PARQUIMETRO com data de vencimento baseado no tempo comprado
+                        -->
+
+<html>
+  <head>
+    <script type="text/javascript" src="qrcode.js"></script>
+  </head>
+  <body>
+    <h1>Gerador de QRcode</h1>
+    <h2>Insira a quantidade de minutos</h2>
+    <div id="placeHolder"></div>
+    <input id="valor" />
+    <button id="gera" onclick="gera()">Clique aqui para gerar um QRcode</button>
+    <br />
+    <br />
+    <label for="vencimento">Vencimento:</label>
+    <input type="text" id="vencimento" readonly />
+    <label for="total">Valor a pagar</label>
+    <input type="text" id="total" readonly />
+
+    <script>
+      function calculaVencimento(valor) {
+        //calcula o vencimento baseado no tempo comprado e gera uma string com a data de inicio, data final, e assinatura 65
+        let timestampInicial = Math.floor(new Date().getTime() / 1000);
+        let timestampFinal =
+          Math.floor(new Date().getTime() / 1000) + parseInt(valor) * 60;
+
+        var preco = "R$ 5,00";
+        var total =
+          "R$ " +
+          parseFloat((valor / 60) * 5)
+            .toFixed(2)
+            .toString()
+            .replace(".", ",");
+
+        document.getElementById("vencimento").value = timestampFinal;
+        document.getElementById("total").value = total;
+      }
+      function gera() {
+        console.log("Gerando QRcode");
+        calculaVencimento(document.getElementById("valor").value);
+        var typeNumber = 4;
+        var errorCorrectionLevel = "L";
+        var qr = qrcode(typeNumber, errorCorrectionLevel);
+
+        var vencimento = document.getElementById("vencimento").value;
+        var assinatura = "65";
+        qr.addData(vencimento + " - " + assinatura);
+
+        const data = new Date(vencimento * 1000);
+        const dia = data.getDate();
+        const mes = data.getMonth() + 1; // Os meses são indexados de 0 a 11, portanto adicionamos 1
+        const ano = data.getFullYear();
+        const horas = data.getHours();
+        const minutos = data.getMinutes();
+        const segundos = data.getSeconds();
+        const dataLegivel = `${dia}/${mes}/${ano} ${horas}:${minutos}:${segundos}`;
+        document.getElementById("vencimento").value = dataLegivel;
+
+        qr.make();
+        document.getElementById("placeHolder").innerHTML = qr.createImgTag(
+          8,
+          32,
+          "qrcode"
+        );
+      }
+    </script>
+  </body>
+</html>

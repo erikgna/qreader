@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  app:
+    image: nginx:latest # Aqui você pode substituir "nginx:latest" pela imagem correspondente à sua aplicação (ex.: node:14, httpd:latest, etc.).
+    restart: always
+    volumes:
+      - ./app:/usr/share/nginx/html
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pwa.rule=Host(`pwa.erikna.com`)" # Substitua pelo seu domínio real
+      - "traefik.http.routers.pwa.entrypoints=websecure"
+      - "traefik.http.routers.pwa.tls=true"

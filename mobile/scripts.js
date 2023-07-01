@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("QR Code expirado, deve pagar: R$ " + money);
         return;
       }
+      alert("O QRCode não está vencido!");
+      return;
     }
   }
 

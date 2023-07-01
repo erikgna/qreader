@@ -3,12 +3,15 @@ version: "3.8"
 services:
   app:
     image: nginx:latest
+    ports:
+      - "8035:80"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.pwa.rule=Host(`pwa.erikna.com`)"
       - "traefik.http.routers.pwa.entrypoints=web, websecure"
       - "traefik.http.routers.pwa.tls=true"
       - "traefik.http.routers.pwa.tls.certresolver=production"
+      - "traefik.http.services.pwa.loadbalancer.server.port=8035"
     volumes:
       - ./mobile/index.html:/usr/share/nginx/html/index.html
       - ./mobile/scripts.js:/usr/share/nginx/html/scripts.js

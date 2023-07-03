@@ -18,5 +18,6 @@ services:
       - ./mobile/scripts.js:/usr/share/nginx/html/scripts.js
       - ./mobile/service-worker.js:/usr/share/nginx/html/service-worker.js
       - ./mobile/manifest.json:/usr/share/nginx/html/manifest.json
+      - ./mobile/icon.png:/usr/share/nginx/html/icon.png
     networks:
       - web

@@ -17,5 +17,6 @@ services:
       - ./mobile/index.html:/usr/share/nginx/html/index.html
       - ./mobile/scripts.js:/usr/share/nginx/html/scripts.js
       - ./mobile/service-worker.js:/usr/share/nginx/html/service-worker.js
+      - ./mobile/manifest.json:/usr/share/nginx/html/manifest.json
     networks:
       - web

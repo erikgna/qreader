@@ -12,7 +12,7 @@ if ("serviceWorker" in navigator) {
 }
 
 const CACHE_NAME = "qreader-v1";
-const urlsToCache = ["index.html", "icon.png", "scripts.js"];
+const urlsToCache = ["index.html", "scripts.js", "manifest.json"];
 
 self.addEventListener("install", function (event) {
   event.waitUntil(
